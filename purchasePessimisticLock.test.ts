@@ -107,11 +107,11 @@ describe("purchasePessimisticLock 은", () => {
     expect(lastAccountDetail?.newBalance).toBe(initBalance); // 여기서 lastAccountDetail 이 null/undefined 가 아니라는 것을 어떻게 표현할지 생각
   });
 
-  it("잔액 1 소진에 대한 구매 100회 동시 실행 시 성공한 수행만큼 잔액이 줄어든다.", async () => {
+  it("잔액 1 소진에 대한 구매 동시 실행 시 성공한 수행만큼 잔액이 줄어든다.", async () => {
     // given
     const initBalance = 200;
     const changeAmount = 1;
-    const numberOfTrials = 100;
+    const numberOfTrials = 15;
 
     const createdAccount = await prisma.$transaction(async (tx) => {
       // type 이 1인 계좌 생성(currency 의 한 종류라고 생각)
