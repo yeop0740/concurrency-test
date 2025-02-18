@@ -24,7 +24,9 @@ export async function purchase(
         Prisma.sql`
           select ad.*
           from account_detail as ad
-          where id = (select last_account_detail_id from account where id = ${accountId})
+          where ad.account_id = ${accountId}
+          order by created_at desc, id desc
+          limit 1
           for update;
           `
       );
