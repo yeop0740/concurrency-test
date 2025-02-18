@@ -60,13 +60,13 @@ describe("purchasePessimisticLock2 는", () => {
     await prisma.$transaction(
       async (tx) => {
         const [lastAccountDetail] = await tx.$queryRaw<
-          { id: number; new_balance: number }[]
+          { id: number; new_balance: number; account_id: number }[]
         >(
           Prisma.sql`
             SELECT ad.*
             FROM account_detail AS ad
             WHERE id = ${rr.id}
-            ORDER BY create_at desc, id desc
+            ORDER BY created_at desc, id desc
             LIMIT 1
             FOR UPDATE;`
         );
@@ -80,6 +80,15 @@ describe("purchasePessimisticLock2 는", () => {
         if (lastAccountDetail === null || lastAccountDetail === undefined) {
           throw new Error("not found account detail");
         }
+
+        await tx.accountDetail.create({
+          data: {
+            prevBalance: lastAccountDetail.new_balance,
+            changeAmount: -1,
+            newBalance: lastAccountDetail.new_balance - 1,
+            accountId: lastAccountDetail.account_id,
+          },
+        });
       },
       { timeout: 10000 }
     );
