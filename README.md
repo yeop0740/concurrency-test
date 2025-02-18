@@ -12,6 +12,12 @@ yarn
 docker compose -f docker-compose.yml up -d
 ```
 
+데이터베이스 스키마 세팅(.env 파일의 정보로 설정됩니다)
+
+```shell
+npx prisma migrate dev
+```
+
 ## CASE 1
 
 .env 파일에서 DATABASE_URL 변수에 connection_limit = 15 설정
