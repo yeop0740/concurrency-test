@@ -4,7 +4,7 @@ import { CreateAccountEntity } from "./CreateAccountEntity";
 import { purchase as purchasePessimisticLock } from "./purchasePessimisticLock";
 
 describe("purchasePessimisticLock 은", () => {
-  const prisma = new PrismaClient({ log: ["query"] });
+  const prisma = new PrismaClient();
 
   beforeAll(() => {
     prisma.$connect();
@@ -111,7 +111,7 @@ describe("purchasePessimisticLock 은", () => {
     // given
     const initBalance = 200;
     const changeAmount = 1;
-    const numberOfTrials = 15;
+    const numberOfTrials = 100;
 
     const createdAccount = await prisma.$transaction(async (tx) => {
       // type 이 1인 계좌 생성(currency 의 한 종류라고 생각)
