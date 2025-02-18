@@ -4,7 +4,8 @@
   "main": "index.ts",
   "scripts": {
     "test:1": "jest 'purchasePessimisticLock.test.ts'",
-    "test:2": "jest 'purchaseReadCommitted.test.ts'"
+    "test:2": "jest 'purchaseReadCommitted.test.ts'",
+    "lock": "jest 'selectForUpdate.test.ts'"
   },
   "author": "",
   "license": "ISC",
