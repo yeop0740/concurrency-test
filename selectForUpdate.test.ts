@@ -66,6 +66,7 @@ describe("purchasePessimisticLock2 는", () => {
             SELECT ad.*
             FROM account_detail AS ad
             WHERE id = ${rr.id}
+            ORDER BY create_at desc, id desc
             LIMIT 1
             FOR UPDATE;`
         );
